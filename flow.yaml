@@ -1,0 +1,67 @@
+# version format ex. "0.0.1"
+version: "0.0.1"
+
+# Basic metadata for the agent
+metadata:
+  name: "ReadNext (Book Recommendation System)"
+  description: "This flow helps you get personalized book recommendations based on your preferences."
+  author: "shivam" # This username should match your account username
+  tags: [Books, Reading, Literature, Novels, Recommendations]
+  private: false # Access control for your flows (true/false)
+
+# Define the input variables required
+inputs:
+  genre:
+    type: string # String format for input
+    description: "The genre of books you're interested in."
+    required: true
+    example: "Mystery, Fiction, Science Fiction, Romance, etc."
+
+  author:
+    type: string
+    description: "Name of the author whose books you like."
+    required: false
+    example: "Agatha Christie, George Orwell, etc."
+
+  style:
+    type: string
+    description: "Preferred style of the book (e.g., fast-paced, plot-driven, character-focused)."
+    required: true
+    example: "Fast-paced, character-driven, plot twists, etc."
+
+  length:
+    type: string
+    description: "Preferred length of the book (e.g., short stories, novels)."
+    required: false
+    example: "Short stories, Novellas, 300-400 pages, etc."
+
+  previous_book:
+    type: string
+    description: "A book you've enjoyed and would like similar recommendations for."
+    required: false
+    example: "The Da Vinci Code, 1984, etc."
+
+# LLM configuration
+model:
+  provider: "openai" # e.g., anthropic, openai, meta, etc.
+  name: "gpt-4o" # Model for generating recommendations
+
+# Prompt template configuration
+prompt: |
+  Suggest 5 best books based on the following preferences:
+  - Genre: {genre}
+  - Author: {author} (if provided)
+  - Style: {style}
+  - Length: {length} (if provided)
+  - If the user liked the book {previous_book}, suggest similar books.
+  
+  Also provide a brief description of each recommended book and where the user can purchase or read it (online platforms or bookstores).
+
+# ReadME configuration
+readme: |
+  This flow helps users find personalized book recommendations based on their genre, author, style, and length preferences. 
+  Users can also get recommendations similar to a book they have already enjoyed. 
+  The model used in this flow is OpenAI GPT-4.
+
+  Example:
+  Input1: Genre - Mystery, Input2: Style - Fast-paced, Input3: Length - 300-400 pages
